@@ -18,11 +18,14 @@ print("Current Setup Location: ", current_path)
 print("Working Directory: ", cwd)
 __metaclass__ = type
 import distutils.command.install as orig
+
 try:
-   import pypandoc
-   description = pypandoc.convert('README.md', 'rst')
+    import pypandoc
+
+    description = pypandoc.convert('README.md', 'rst')
 except (IOError, ImportError):
-   description = open('README.md').read()
+    description = open('README.md').read()
+
 
 def build_redis(self):
     print("Extracting Redis To Build Location: ", self.build_lib)
@@ -117,7 +120,19 @@ setup(name='open-redis',
       entry_points={
           'console_scripts': ['redis-express=pyscripts.redis_express:main'],
       },
-      long_description = description,
+      long_description=description,
       install_requires=required,
       data_files=[('open_redis/', ['open_redis/redis-base-config'])],
-      )
+      classifiers=[
+          'License :: OSI Approved :: BSD License',
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 2.6',
+          'Programming Language :: Python :: 2.7',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.2',
+          'Programming Language :: Python :: 3.3',
+          'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6'
+      ]
+)
