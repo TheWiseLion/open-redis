@@ -22,7 +22,6 @@ deploy:
       server: https://test.pypi.org/legacy/
       on:
         branch: dev-release
-        tags: false
         condition: $TRAVIS_PYTHON_VERSION = "3.6"
 
     - provider:  pypi
@@ -32,7 +31,6 @@ deploy:
       server: https://pypi.python.org/pypi
       on:
         branch: production
-        tags: false
         condition: $TRAVIS_PYTHON_VERSION = "3.6"
 
 addons:
