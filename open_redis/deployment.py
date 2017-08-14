@@ -81,7 +81,7 @@ class RedisDeployment(object):
         self.conf = conf
 
     # TODO: start() should block until server is actually up
-    def start(self, as_process=False):
+    def start(self, as_process=False,log=None):
         """
         Blocks until server closes if as_process is true. Otherwise it's started as a child process.
 
@@ -103,8 +103,12 @@ class RedisDeployment(object):
             if self.conf is not None:
                 base_config += "\nInclude " + self.conf+"\n"
 
+            if log:
+                base_config = base_config.replace('{DEPLOY_LOCATION}/logs/redis.log', str(log))
+
             base_config = base_config.replace('{DEPLOY_PORT}', str(self._port))
             base_config = base_config.replace('{DEPLOY_LOCATION}', str(self.deployment_directory_location))
+
 
             # Write Generated File:
             generated_config = open(self.deployment_directory_location+"/redis.config", "w")

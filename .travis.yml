@@ -18,10 +18,12 @@ deploy:
     - provider: pypi
       user: "wiselion"
       password:
-        secure: "jf/2hj5PE7DNJ/bMqkNxFyV8UKg8wWXHQyBkuUhVByralKqP3Z2noMwYtpbi8xy414upfkwDSICbGlCjzTWOHsKBlaaMpROX1qi8pOMefXRh3UkCeif7XuTYPIjpHgEvGubGCjrk1QYae7OOMJoyRCU7Mz1HkrfOncpLZ8xWTcplWRuaBSy0VwBrb+k6lmvMbqk53OP5dAWyK3mdxT+1WU1usXsZh1zsleJrs9x80XmWpW1qJTsuHX8d9Cjv9Gr8m42Rr73Rvy9bzIELClPpa7hXjuFS5XFujmA/kP073RywINXUITV1Fe4h8XWwaqtKoGnrPymYKINq5XGTEIeN5V7QPzXMgem3yUWQFzuAKvdUQgIGwG3eeNysjsmOWYTYtJNyMr0aThrnWtB8ag77lxY1ThiXFfvI9C65a90nvReZ5ulTwNiE0hCDxZZa6NwRVvVTuJ/kLfEtrpQGrKjK8yBdWXHth9yRpQWxWb2uv6DQVMOQ4hRbakezf6bHFWN+9oFpamRJuy29N/Msy69x1M98LgjsLsTDEY+1fX5OZdsH5KbRs84Uv2oN5t+3iLASgiWduuC3FPWGnc3CZ4CZkm0iQNcFBo3XYDbb9FvKbX5K9Jx/8nZsnrBJMh6l8icZ8BlOWkknGMWulv+v/WibsIS9I/kQPuldpccwrcbp5uQ="
+        secure: "CjnZT6dvHOCFEh5z0vBfEegaGeU0QSfWm2D1bDoRPvyLAdTsSAM2MDV5Ikoy9QgCmq1w84pCpq1qwCnBPukCfU/paoRpf+YRIVX4QgdrdSmOWjXXeJExQQJc9Am1HMDPpRXW/QxzvQjWiRF4AZpMmRIX2c4yKNxRFLdx1uxbnIhqr9w/4B83AqVqLRGRTlU7Wk9igSi/AsaGUr6bYwNKafT9ATeCP7t/qffU/pNMDGMCNqNI0glFxxhSy0lGUiB05yJBXWY2LSVFjtCMmxNRvBYE6KYRxw9yWBw6H0t+U/W9vgvd2pDSwtYylPfLCrWa47b3vtIeHnCBJ605xgrboHzlfKSLymHQwkDSTFpIU2Wk8bm0nZ+MaLbYwgdGLLtEKlv5mBI0r8viqc8c8iSP5Nmrn78LsgbUlZ8+v9Zd+888DJGcsQc28zcLkD5WOaL/43/ijUHT+pL4yynepPouSCPnGOragIuETKL6nda9rz+raiAeI9I+b8UTZ6cqhJU352EoDnYLcDwklfiO/VX36iRAruzhqFALFcOexl2aTFnN+tlbwzlJAcyACyBOp/JVPjvKCoXx7s4jYrNIv6k43j5ImNirniR2FyVwur52rbNjk8HiiF5KePSl2xLQhmGczvuEOxye2JYUpjLCy7tYn5rhnP0UXjBVxejiRVasb2w="
       server: https://test.pypi.org/legacy/
       on:
         branch: dev-release
+        tags: false
+        condition: $TRAVIS_PYTHON_VERSION = "3.6"
 
     - provider:  pypi
       user: "wiselion"
@@ -30,6 +32,8 @@ deploy:
       server: https://pypi.python.org/pypi
       on:
         branch: production
+        tags: false
+        condition: $TRAVIS_PYTHON_VERSION = "3.6"
 
 addons:
   apt_packages:

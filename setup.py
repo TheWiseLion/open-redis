@@ -111,14 +111,14 @@ setup(name='open-redis',
       author='John Mecham',
       author_email='jon.mecham@gmail.com',
       url='https://github.com/TheWiseLion/open-redis',
-      packages=['open_redis'],
-      package_dir={'open_redis': 'open_redis'},
+      packages=['open_redis','open_redis.pyscripts'],
+      package_dir={'open_redis': 'open_redis','open_redis.pyscripts':'pyscripts'},
       keywords=['redis', 'server', 'manager'],  # arbitrary keywords
       cmdclass={
           'install': InstallRedis
       },
       entry_points={
-          'console_scripts': ['redis-express=pyscripts.redis_express:main'],
+          'console_scripts': ['redis-express=open_redis.pyscripts.redis_express:main'],
       },
       long_description=description,
       install_requires=required,
