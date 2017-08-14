@@ -1,4 +1,6 @@
 # Travis CI tests
+import logging
+
 import os
 import unittest
 from time import sleep
@@ -32,7 +34,11 @@ class TestRedisDeploy(unittest.TestCase):
         server.start()
         sleep(2)
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
-        r.set('test', 'me')
+        self.assertTrue(r.set('test', 'me'))
+        value = r.get('test')
+        print(value)
+        print(repr(value))
+        logging.warning(value)
         self.assertTrue(r.get('test') == 'me')
         server.stop()
 
