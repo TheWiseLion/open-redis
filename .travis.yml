@@ -13,4 +13,4 @@ install:
   - "pip install ."
 
 # command to run tests
-script: "nosetests"
+script: "nosetests --cover-erase --all-modules --cover-tests --cover-inclusive"

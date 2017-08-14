@@ -14,9 +14,10 @@ class TestRedisDeploy(unittest.TestCase):
         sleep(1)  # TODO: make stop() blocking
 
     def test_start_stop(self):
-        server = RedisDeployment('~/redis-test-client').start()
+        server = RedisDeployment('~/redis-test-client')
+        server.start()
+        sleep(1)  # TODO: make start() blocking
         server.stop()
-        sleep(1)  # TODO: make stop() blocking
         self.assertTrue(len(RedisDeployment.list_running_instances()) == 0)
 
     def test_start_stop_daemon(self):
@@ -27,7 +28,8 @@ class TestRedisDeploy(unittest.TestCase):
         self.assertTrue(len(RedisDeployment.list_running_instances()) == 0)
 
     def test_client_connects(self):
-        server = RedisDeployment('~/redis-test-client').start()
+        server = RedisDeployment('~/redis-test-client')
+        server.start()
         sleep(2)
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
         r.set('test', 'me')

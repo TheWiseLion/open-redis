@@ -152,7 +152,7 @@ class RedisDeployment(object):
         """
         # Kill launched process (if present) and daemon
         proc = RedisDeployment._running_on_port(self._port)
-        if proc.name() == EXEC_NAME:
+        if proc and proc.name() == EXEC_NAME:
             if not 'SYSTEM' in proc.username():
                 proc.kill()
 
