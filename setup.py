@@ -18,7 +18,11 @@ print("Current Setup Location: ", current_path)
 print("Working Directory: ", cwd)
 __metaclass__ = type
 import distutils.command.install as orig
-
+try:
+   import pypandoc
+   description = pypandoc.convert('README.md', 'rst')
+except (IOError, ImportError):
+   description = open('README.md').read()
 
 def build_redis(self):
     print("Extracting Redis To Build Location: ", self.build_lib)
@@ -101,10 +105,10 @@ with open('requirements.txt') as f:
 
 setup(name='open-redis',
       version='0.1',
-      description='Python Distribution Of Redis',
+      description='A python package to install and manage redis',
       author='John Mecham',
       author_email='jon.mecham@gmail.com',
-      url='https://www.python.org/sigs/distutils-sig/',
+      url='https://github.com/TheWiseLion/open-redis',
       packages=['open_redis'],
       package_dir={'open_redis': 'open_redis'},
       cmdclass={
@@ -113,6 +117,7 @@ setup(name='open-redis',
       entry_points={
           'console_scripts': ['redis-express=pyscripts.redis_express:main'],
       },
+      long_description = description,
       install_requires=required,
       data_files=[('open_redis/', ['open_redis/redis-base-config'])],
       )
