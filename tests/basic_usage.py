@@ -35,7 +35,7 @@ class TestRedisDeploy(unittest.TestCase):
         sleep(2)
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
         self.assertTrue(r.set('test', 'me'))
-        self.assertTrue(str(r.get('test')) == 'me')
+        self.assertTrue(str(r.get('test').decode('utf-8')) == 'me')
         server.stop()
 
     def test_travis_runs(self):

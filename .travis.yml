@@ -2,7 +2,6 @@ language: python
 python:
   - "2.6"
   - "2.7"
-  - "3.2"
   - "3.3"
   - "3.4"
   - "3.5"
@@ -18,15 +17,17 @@ script: "nosetests --cover-erase --all-modules --cover-tests --cover-inclusive"
 deploy:
     - provider: pypi
       user: "wiselion"
-      password: "jf/2hj5PE7DNJ/bMqkNxFyV8UKg8wWXHQyBkuUhVByralKqP3Z2noMwYtpbi8xy414upfkwDSICbGlCjzTWOHsKBlaaMpROX1qi8pOMefXRh3UkCeif7XuTYPIjpHgEvGubGCjrk1QYae7OOMJoyRCU7Mz1HkrfOncpLZ8xWTcplWRuaBSy0VwBrb+k6lmvMbqk53OP5dAWyK3mdxT+1WU1usXsZh1zsleJrs9x80XmWpW1qJTsuHX8d9Cjv9Gr8m42Rr73Rvy9bzIELClPpa7hXjuFS5XFujmA/kP073RywINXUITV1Fe4h8XWwaqtKoGnrPymYKINq5XGTEIeN5V7QPzXMgem3yUWQFzuAKvdUQgIGwG3eeNysjsmOWYTYtJNyMr0aThrnWtB8ag77lxY1ThiXFfvI9C65a90nvReZ5ulTwNiE0hCDxZZa6NwRVvVTuJ/kLfEtrpQGrKjK8yBdWXHth9yRpQWxWb2uv6DQVMOQ4hRbakezf6bHFWN+9oFpamRJuy29N/Msy69x1M98LgjsLsTDEY+1fX5OZdsH5KbRs84Uv2oN5t+3iLASgiWduuC3FPWGnc3CZ4CZkm0iQNcFBo3XYDbb9FvKbX5K9Jx/8nZsnrBJMh6l8icZ8BlOWkknGMWulv+v/WibsIS9I/kQPuldpccwrcbp5uQ="
+      password:
+        secure: "jf/2hj5PE7DNJ/bMqkNxFyV8UKg8wWXHQyBkuUhVByralKqP3Z2noMwYtpbi8xy414upfkwDSICbGlCjzTWOHsKBlaaMpROX1qi8pOMefXRh3UkCeif7XuTYPIjpHgEvGubGCjrk1QYae7OOMJoyRCU7Mz1HkrfOncpLZ8xWTcplWRuaBSy0VwBrb+k6lmvMbqk53OP5dAWyK3mdxT+1WU1usXsZh1zsleJrs9x80XmWpW1qJTsuHX8d9Cjv9Gr8m42Rr73Rvy9bzIELClPpa7hXjuFS5XFujmA/kP073RywINXUITV1Fe4h8XWwaqtKoGnrPymYKINq5XGTEIeN5V7QPzXMgem3yUWQFzuAKvdUQgIGwG3eeNysjsmOWYTYtJNyMr0aThrnWtB8ag77lxY1ThiXFfvI9C65a90nvReZ5ulTwNiE0hCDxZZa6NwRVvVTuJ/kLfEtrpQGrKjK8yBdWXHth9yRpQWxWb2uv6DQVMOQ4hRbakezf6bHFWN+9oFpamRJuy29N/Msy69x1M98LgjsLsTDEY+1fX5OZdsH5KbRs84Uv2oN5t+3iLASgiWduuC3FPWGnc3CZ4CZkm0iQNcFBo3XYDbb9FvKbX5K9Jx/8nZsnrBJMh6l8icZ8BlOWkknGMWulv+v/WibsIS9I/kQPuldpccwrcbp5uQ="
       server: https://testpypi.python.org/pypi
       on:
         branch: dev
 
     - provider:  pypi
       user: "wiselion"
-      password: "jf/2hj5PE7DNJ/bMqkNxFyV8UKg8wWXHQyBkuUhVByralKqP3Z2noMwYtpbi8xy414upfkwDSICbGlCjzTWOHsKBlaaMpROX1qi8pOMefXRh3UkCeif7XuTYPIjpHgEvGubGCjrk1QYae7OOMJoyRCU7Mz1HkrfOncpLZ8xWTcplWRuaBSy0VwBrb+k6lmvMbqk53OP5dAWyK3mdxT+1WU1usXsZh1zsleJrs9x80XmWpW1qJTsuHX8d9Cjv9Gr8m42Rr73Rvy9bzIELClPpa7hXjuFS5XFujmA/kP073RywINXUITV1Fe4h8XWwaqtKoGnrPymYKINq5XGTEIeN5V7QPzXMgem3yUWQFzuAKvdUQgIGwG3eeNysjsmOWYTYtJNyMr0aThrnWtB8ag77lxY1ThiXFfvI9C65a90nvReZ5ulTwNiE0hCDxZZa6NwRVvVTuJ/kLfEtrpQGrKjK8yBdWXHth9yRpQWxWb2uv6DQVMOQ4hRbakezf6bHFWN+9oFpamRJuy29N/Msy69x1M98LgjsLsTDEY+1fX5OZdsH5KbRs84Uv2oN5t+3iLASgiWduuC3FPWGnc3CZ4CZkm0iQNcFBo3XYDbb9FvKbX5K9Jx/8nZsnrBJMh6l8icZ8BlOWkknGMWulv+v/WibsIS9I/kQPuldpccwrcbp5uQ="
-      server: https://testpypi.python.org/pypi
+      password:
+        secure: "todo"
+      server: https://pypi.python.org/pypi
       on:
         branch: production
 

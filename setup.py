@@ -21,7 +21,6 @@ import distutils.command.install as orig
 
 try:
     import pypandoc
-
     description = pypandoc.convert('README.md', 'rst')
 except (IOError, ImportError):
     description = open('README.md').read()
@@ -114,6 +113,7 @@ setup(name='open-redis',
       url='https://github.com/TheWiseLion/open-redis',
       packages=['open_redis'],
       package_dir={'open_redis': 'open_redis'},
+      keywords=['redis', 'server', 'manager'],  # arbitrary keywords
       cmdclass={
           'install': InstallRedis
       },
@@ -129,7 +129,6 @@ setup(name='open-redis',
           'Programming Language :: Python :: 2.6',
           'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.2',
           'Programming Language :: Python :: 3.3',
           'Programming Language :: Python :: 3.4',
           'Programming Language :: Python :: 3.5',
