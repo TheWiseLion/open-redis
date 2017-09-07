@@ -127,7 +127,7 @@ class RedisDeployment(object):
             base_config = base_config.replace('{DEPLOY_LOCATION}', str(self.deployment_directory_location))
 
             if master_ip is not None and master_port is not None:
-                base_config += '\n slaveof ' + str(master_ip) + ' ' + str(master_port)
+                base_config += '\n slaveof ' + str(master_ip) + ' ' + str(master_port)+"\n"
 
             if self.conf is not None:
                 base_config += "\nInclude " + self.conf + "\n"

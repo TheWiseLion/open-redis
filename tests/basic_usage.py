@@ -50,14 +50,14 @@ class TestRedisDeploy(unittest.TestCase):
         salve.start(master_ip='127.0.0.1', master_port=3428)
 
         # Setup Sentinel
-        sentinel = RedisSentinel('~/redis-test-daemon')
-        sentinel.start(master_ip='127.0.0.1',master_port=3428, master_name='mymaster')
+        redis_sentinel = RedisSentinel('~/redis-test-daemon')
+        redis_sentinel.start(master_ip='127.0.0.1',master_port=3428, master_name='mymaster')
 
         ## len(RedisSentinel.list_running_instances()) == 1
         ## len(RedisDeployment.list_running_instances()) == 2
 
         # Client API
-        sentinel = Sentinel([('localhost', sentinel.port)], socket_timeout=0.1)
+        sentinel = Sentinel([('localhost', redis_sentinel.port)], socket_timeout=0.1)
         master_client = sentinel.master_for('mymaster')
         slave_client = sentinel.slave_for('mymaster')
         master_client.set('foo', 'bar')
@@ -69,7 +69,7 @@ class TestRedisDeploy(unittest.TestCase):
 
         master.stop()
         slave_client.stop()
-        sentinel.stop()
+        redis_sentinel.stop()
 
     def test_travis_runs(self):
         # derpy derpy town.
