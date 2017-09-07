@@ -41,7 +41,7 @@ class TestRedisDeploy(unittest.TestCase):
         server.stop()
 
     def test_simple_sentinel(self):
-        server = RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs').start()
+        server = RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs')
         sentinel = RedisSentinel('~/redis-test-daemon')
         server.start()
         sentinel.start()
