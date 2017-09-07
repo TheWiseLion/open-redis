@@ -50,9 +50,10 @@ class TestRedisDeploy(unittest.TestCase):
         salve.start(master_ip='127.0.0.1', master_port=3428)
 
         # Setup Sentinel
-        redis_sentinel = RedisSentinel('~/redis-test-daemon')
+        redis_sentinel = RedisSentinel('~/redis-sentinel')
         redis_sentinel.start(master_ip='127.0.0.1',master_port=3428, master_name='mymaster')
 
+        sleep(3)
         ## len(RedisSentinel.list_running_instances()) == 1
         ## len(RedisDeployment.list_running_instances()) == 2
 
@@ -67,6 +68,7 @@ class TestRedisDeploy(unittest.TestCase):
         self.assertTrue(len(RedisDeployment.list_running_instances()) == 2)
         self.assertTrue(str(slave_client.get('foo').decode('utf-8')) == 'bar')
 
+        # Close down the servers
         master.stop()
         slave_client.stop()
         redis_sentinel.stop()
