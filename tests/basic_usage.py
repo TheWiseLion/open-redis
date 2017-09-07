@@ -33,7 +33,7 @@ class TestRedisDeploy(unittest.TestCase):
         server = RedisDeployment('~/redis-test-client')
         server.start()
         sleep(2)
-        r = redis.StrictRedis(host='localhost', port=6379, db=0)
+        r = redis.StrictRedis(host='localhost', port=16548, db=0)
         self.assertTrue(r.set('test', 'me'))
         self.assertTrue(str(r.get('test').decode('utf-8')) == 'me')
         server.stop()
