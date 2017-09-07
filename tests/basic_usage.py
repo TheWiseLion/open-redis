@@ -70,7 +70,7 @@ class TestRedisDeploy(unittest.TestCase):
 
         # Close down the servers
         master.stop()
-        slave_client.stop()
+        salve.stop()
         redis_sentinel.stop()
 
     def test_travis_runs(self):
