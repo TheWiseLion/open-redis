@@ -107,7 +107,7 @@ with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 setup(name='open-redis',
-      version='0.3',
+      version='0.5',
       description='A python package to install and manage redis',
       author='John Mecham',
       author_email='jon.mecham@gmail.com',
