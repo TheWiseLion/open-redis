@@ -4,4 +4,6 @@ include LICENSE
 recursive-include pyscripts
 recursive-include open_redis
 include open_redis/redis-base-config
+include open_redis/sentinel-base-config
+
 
