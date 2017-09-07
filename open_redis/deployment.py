@@ -14,7 +14,7 @@ try:
     _path = pkg.location + '/' + 'open_redis'
 except:
     _path = os.path.realpath(__file__).rsplit("/", 1)[0]
-VERSION = '3.2.10'
+VERSION = '4.0.1'
 REDIS_PATH = os.path.realpath(_path + '/redis-' + VERSION + '/src/redis-server')
 REDIS_SENTINEL_PATH = os.path.realpath(_path + '/redis-' + VERSION + '/src/redis-sentinel')
 _REDIS_BASE_CONFIG_PATH = os.path.realpath(_path + '/redis-base-config')
