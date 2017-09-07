@@ -6,9 +6,11 @@ import unittest
 from time import sleep
 
 import redis
-from open_redis.deployment import RedisDeployment
+from open_redis.deployment import RedisDeployment, RedisSentinel
 
-file_dir = os.path.realpath(__file__).rsplit('/',1)[0]+"/"
+file_dir = os.path.realpath(__file__).rsplit('/', 1)[0] + "/"
+
+
 class TestRedisDeploy(unittest.TestCase):
     def setUp(self):
         for server in RedisDeployment.list_running_instances():
@@ -24,7 +26,7 @@ class TestRedisDeploy(unittest.TestCase):
 
     def test_start_stop_daemon(self):
         # This test also checks configs works
-        RedisDeployment('~/redis-test-daemon', conf=file_dir+'include-configs' ).start()
+        RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs').start()
         sleep(1)
         RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs').stop()
         self.assertTrue(len(RedisDeployment.list_running_instances()) == 0)
@@ -37,6 +39,17 @@ class TestRedisDeploy(unittest.TestCase):
         self.assertTrue(r.set('test', 'me'))
         self.assertTrue(str(r.get('test').decode('utf-8')) == 'me')
         server.stop()
+
+    def test_simple_sentinel(self):
+        server = RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs').start()
+        sentinel = RedisSentinel('~/redis-test-daemon')
+        server.start()
+        sentinel.start()
+        self.assertTrue(len(RedisSentinel.list_running_instances()) == 1)
+        sentinel.stop()
+        server.stop()
+        self.assertTrue(len(RedisSentinel.list_running_instances()) == 0)
+
 
     def test_travis_runs(self):
         # derpy derpy town.
