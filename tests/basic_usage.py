@@ -16,6 +16,8 @@ class TestRedisDeploy(unittest.TestCase):
     def setUp(self):
         for server in RedisDeployment.list_running_instances():
             server.stop()
+        for server in RedisSentinel.list_running_instances():
+            server.stop()
         sleep(1)  # TODO: make stop() blocking
 
     def test_start_stop(self):
@@ -30,6 +32,7 @@ class TestRedisDeploy(unittest.TestCase):
         RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs').start()
         sleep(1)
         RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs').stop()
+        sleep(1)
         self.assertTrue(len(RedisDeployment.list_running_instances()) == 0)
 
     def test_client_connects(self):
