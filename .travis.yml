@@ -30,7 +30,7 @@ deploy:
         secure: "CjnZT6dvHOCFEh5z0vBfEegaGeU0QSfWm2D1bDoRPvyLAdTsSAM2MDV5Ikoy9QgCmq1w84pCpq1qwCnBPukCfU/paoRpf+YRIVX4QgdrdSmOWjXXeJExQQJc9Am1HMDPpRXW/QxzvQjWiRF4AZpMmRIX2c4yKNxRFLdx1uxbnIhqr9w/4B83AqVqLRGRTlU7Wk9igSi/AsaGUr6bYwNKafT9ATeCP7t/qffU/pNMDGMCNqNI0glFxxhSy0lGUiB05yJBXWY2LSVFjtCMmxNRvBYE6KYRxw9yWBw6H0t+U/W9vgvd2pDSwtYylPfLCrWa47b3vtIeHnCBJ605xgrboHzlfKSLymHQwkDSTFpIU2Wk8bm0nZ+MaLbYwgdGLLtEKlv5mBI0r8viqc8c8iSP5Nmrn78LsgbUlZ8+v9Zd+888DJGcsQc28zcLkD5WOaL/43/ijUHT+pL4yynepPouSCPnGOragIuETKL6nda9rz+raiAeI9I+b8UTZ6cqhJU352EoDnYLcDwklfiO/VX36iRAruzhqFALFcOexl2aTFnN+tlbwzlJAcyACyBOp/JVPjvKCoXx7s4jYrNIv6k43j5ImNirniR2FyVwur52rbNjk8HiiF5KePSl2xLQhmGczvuEOxye2JYUpjLCy7tYn5rhnP0UXjBVxejiRVasb2w="
       server: https://pypi.python.org/pypi
       on:
-        branch: production
+        branch: master
         condition: $TRAVIS_PYTHON_VERSION = "3.6"
 
 addons:
