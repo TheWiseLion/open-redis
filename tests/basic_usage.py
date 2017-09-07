@@ -39,7 +39,7 @@ class TestRedisDeploy(unittest.TestCase):
         server.stop()
 
     def test_travis_runs(self):
-        # derpy derpy town
+        # derpy derpy town.
         self.assertTrue(True)
 
 
