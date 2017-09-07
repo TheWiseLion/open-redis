@@ -20,6 +20,15 @@ _SENTINEL_BASE_CONFIG_PATH = os.path.realpath(_path + '/sentinel-base-config')
 EXEC_NAME = 'redis-server'
 SENTINEL_EXEC_NAME = 'redis-sentinel'
 
+import socket
+from contextlib import closing
+
+
+def find_free_port():
+    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
+        s.bind(('', 0))
+        return s.getsockname()[1]
+
 
 class RedisDeployment(object):
     @staticmethod
@@ -81,13 +90,17 @@ class RedisDeployment(object):
 
         return results
 
-    def __init__(self, deployment_directory_location, port=6379, conf=None):
+    def __init__(self, deployment_directory_location, port=None, conf=None):
+        if port is None:
+            port = find_free_port()
+
         self.deployment_directory_location = os.path.abspath(os.path.expanduser(deployment_directory_location))
-        self._port = port
+        self.port = port
         self.conf = conf
 
     # TODO: start() should block until server is actually up
-    def start(self, as_process=False, log=None):
+    def start(self, as_process=False, log=None,
+              master_ip=None, master_port=None):
         """
         Blocks until server closes if as_process is true. Otherwise it's started as a child process.
 
@@ -107,14 +120,17 @@ class RedisDeployment(object):
             base_config = file_object.read()
             file_object.close()
 
-            if self.conf is not None:
-                base_config += "\nInclude " + self.conf + "\n"
-
             if log:
                 base_config = base_config.replace('{DEPLOY_LOCATION}/logs/redis.log', str(log))
 
             base_config = base_config.replace('{DEPLOY_PORT}', str(self._port))
             base_config = base_config.replace('{DEPLOY_LOCATION}', str(self.deployment_directory_location))
+
+            if master_ip is not None and master_port is not None:
+                base_config += '\n slaveof ' + str(master_ip) + ' ' + str(master_port)
+
+            if self.conf is not None:
+                base_config += "\nInclude " + self.conf + "\n"
 
             # Write Generated File:
             generated_config = open(self.deployment_directory_location + "/redis.config", "w")
@@ -177,9 +193,6 @@ class RedisDeployment(object):
             else:
                 return False
 
-    @property
-    def port(self):
-        return self._port
 
 
 class RedisSentinel(object):
@@ -233,9 +246,11 @@ class RedisSentinel(object):
 
         return results
 
-    def __init__(self, deployment_directory_location, port=26379, conf=None):
+    def __init__(self, deployment_directory_location, port=None, conf=None):
+        if port is None:
+            port = find_free_port()
         self.deployment_directory_location = os.path.abspath(os.path.expanduser(deployment_directory_location))
-        self._port = port
+        self.port = port
         self.conf = conf
 
     def start(self, as_process=False, master_name='mymaster', master_ip='127.0.0.1', master_port=6379, quorum=1):
@@ -271,7 +286,7 @@ class RedisSentinel(object):
             base_config = base_config.replace('{QUORUM}', str(quorum))
 
             if self.conf is not None:
-                base_config += '\n'+open(self.conf, 'r').read()
+                base_config += '\n' + open(self.conf, 'r').read()
 
             # Write Generated File:
             generated_config = open(self.deployment_directory_location + "/sentinel.config", "w")
@@ -280,12 +295,14 @@ class RedisSentinel(object):
 
             # Start Server with given config file & port parameter
             if as_process:
-                os.execl(REDIS_SENTINEL_PATH, REDIS_SENTINEL_PATH, *[self.deployment_directory_location + "/sentinel.config"])
+                os.execl(REDIS_SENTINEL_PATH, REDIS_SENTINEL_PATH,
+                         *[self.deployment_directory_location + "/sentinel.config"])
             else:
                 # Wrap in process
-                process = subprocess.Popen([REDIS_SENTINEL_PATH, self.deployment_directory_location + "/sentinel.config"],
-                                           stdout=subprocess.PIPE,
-                                           cwd=self.deployment_directory_location)
+                process = subprocess.Popen(
+                    [REDIS_SENTINEL_PATH, self.deployment_directory_location + "/sentinel.config"],
+                    stdout=subprocess.PIPE,
+                    cwd=self.deployment_directory_location)
 
                 # Default behavior is to kill the child on exit
                 # This is also not the most efficient way to write this.
