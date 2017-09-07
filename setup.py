@@ -80,6 +80,7 @@ class InstallRedis(install):
         # TODO: this shouldn't be needed yet something is super messed up with data files
         try:
             shutil.copy(current_path + '/open_redis/redis-base-config', install_location)
+            shutil.copy(current_path + '/open_redis/sentinel-base-config', install_location)
         except:
             pass
 
@@ -122,7 +123,7 @@ setup(name='open-redis',
       },
       long_description=description,
       install_requires=required,
-      data_files=[('open_redis/', ['open_redis/redis-base-config'])],
+      data_files=[('open_redis/', ['open_redis/redis-base-config','open_redis/sentinel-base-config'])],
       classifiers=[
           'License :: OSI Approved :: BSD License',
           'Programming Language :: Python :: 2',
