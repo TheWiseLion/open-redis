@@ -30,10 +30,10 @@ class TestRedisDeploy(unittest.TestCase):
         self.assertTrue(len(RedisDeployment.list_running_instances()) == 0)
 
     def test_client_connects(self):
-        server = RedisDeployment('~/redis-test-client')
+        server = RedisDeployment('~/redis-test-client', port=7653)
         server.start()
         sleep(2)
-        r = redis.StrictRedis(host='localhost', port=16548, db=0)
+        r = redis.StrictRedis(host='localhost', port=7653, db=0)
         self.assertTrue(r.set('test', 'me'))
         self.assertTrue(str(r.get('test').decode('utf-8')) == 'me')
         server.stop()

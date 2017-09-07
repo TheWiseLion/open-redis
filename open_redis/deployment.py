@@ -45,6 +45,7 @@ class RedisDeployment(object):
         """
         Returns list of running redis instances running on the server
         :return: list of  RedisDeployment
+        :rtype: List[RedisDeployment]
         """
         results = []
         for proc in psutil.process_iter():
@@ -81,12 +82,13 @@ class RedisDeployment(object):
         self.conf = conf
 
     # TODO: start() should block until server is actually up
-    def start(self, as_process=False,log=None):
+    def start(self, as_process=False, log=None):
         """
         Blocks until server closes if as_process is true. Otherwise it's started as a child process.
 
         :param as_process: if true will replace current process with the current process (useful if calling from cmd line)
         :return:
+        :rtype: None
         """
         # Runs the start command (if not already running on the port)
         proc = RedisDeployment._running_on_port(self._port)
