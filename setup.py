@@ -28,14 +28,14 @@ except:
 
 def build_redis(self):
     print("Extracting Redis To Build Location: ", self.build_lib)
-    tar = tarfile.open(current_path + "/redis-3.2.10.tar.gz", "r:gz")
+    tar = tarfile.open(current_path + "/redis-4.0.1.tar.gz", "r:gz")
     tar.extractall(self.build_lib)
     tar.close()
 
     print("Setting up  Redis make.")
 
     def build():
-        call("make", cwd=self.build_lib + "/redis-3.2.10")
+        call("make", cwd=self.build_lib + "/redis-4.0.1")
 
     pre = os.getcwd()
     self.execute(build, [], 'Compiling Redis')

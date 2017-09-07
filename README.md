@@ -38,11 +38,11 @@ This package can be installed from [PyPy](https://pypi.python.org/pypi?:action=d
                             
                             
     $ redis-express -d ~/demo -p 10000
-    Redis install location: /home/ec2-user/test/lib/python2.7/site-packages/open_redis/redis-3.2.10/src/redis-server
-    Using Redis Version: 3.2.10
+    Redis install location: /home/ec2-user/test/lib/python2.7/site-packages/open_redis/redis-4.0.1/src/redis-server
+    Using Redis Version: 4.0.1
                     _._
                _.-``__ ''-._
-          _.-``    `.  `_.  ''-._           Redis 3.2.10 (00000000/0) 64 bit
+          _.-``    `.  `_.  ''-._           Redis 4.0.1 (00000000/0) 64 bit
       .-`` .-```.  ```\/    _.,_ ''-._
      (    '      ,       .-`  | `,    )     Running in standalone mode
      |`-._`-...-` __...-.``-._|'` _.-'|     Port: 10000
@@ -59,7 +59,7 @@ This package can be installed from [PyPy](https://pypi.python.org/pypi?:action=d
                   `-.__.-'
     
     31906:M 07 Sep 04:40:20.890 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
-    31906:M 07 Sep 04:40:20.890 # Server started, Redis version 3.2.10
+    31906:M 07 Sep 04:40:20.890 # Server started, Redis version 4.0.1
     31906:M 07 Sep 04:40:20.891 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
     31906:M 07 Sep 04:40:20.891 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
     31906:M 07 Sep 04:40:20.891 * The server is now ready to accept connections on port 10000
