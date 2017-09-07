@@ -2,6 +2,8 @@
 import subprocess
 
 import os
+from time import sleep
+
 import psutil
 
 # Not exactly needed but really helps with testing...
@@ -157,6 +159,7 @@ class RedisDeployment(object):
                     process.kill()
 
                 atexit.register(kill_child)
+            sleep(.5)
 
         else:
             if proc.exe() == EXEC_NAME:

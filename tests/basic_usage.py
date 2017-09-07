@@ -29,9 +29,9 @@ class TestRedisDeploy(unittest.TestCase):
 
     def test_start_stop_daemon(self):
         # This test also checks configs works
-        RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs').start()
-        sleep(1)
-        RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs').stop()
+        deployment = RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs')
+        deployment.start()
+        deployment.stop()
         sleep(1)
         self.assertTrue(len(RedisDeployment.list_running_instances()) == 0)
 
