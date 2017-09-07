@@ -23,7 +23,7 @@ try:
     import pypandoc
     description = pypandoc.convert('README.md', 'rst')
 except:
-    description = open('README.md').read()
+    description = 'A library for managing redis'
 
 
 def build_redis(self):
