@@ -226,15 +226,6 @@ class RedisSentinel(object):
                             port = connection.laddr[1]
                     results.append(RedisDeployment(proc.cwd(), port))
                     # TODO: get working directory...
-
-                    # for con in proc.get_connections():
-                    #     # Tuple ip, port
-                    #     port = con.local_address[1]
-                    #     if port is find_port:
-                    #         return proc
-
-                    # results.append(RedisDeployment(proc.))
-
             except psutil.NoSuchProcess:
                 pass
             except psutil.AccessDenied:
@@ -251,6 +242,10 @@ class RedisSentinel(object):
         """
         Blocks until server closes if as_process is true. Otherwise it's started as a child process.
 
+        :param quorum: Number of sentinels required for quorum
+        :param master_port: Master port
+        :param master_ip:  Master ip
+        :param master_name: Master Name
         :param as_process: if true will replace current process with the sentinel (useful if calling from cmd line)
         :return:
         :rtype: None
@@ -285,10 +280,10 @@ class RedisSentinel(object):
 
             # Start Server with given config file & port parameter
             if as_process:
-                os.execl(REDIS_PATH, REDIS_PATH, *[self.deployment_directory_location + "/sentinel.config"])
+                os.execl(REDIS_SENTINEL_PATH, REDIS_SENTINEL_PATH, *[self.deployment_directory_location + "/sentinel.config"])
             else:
                 # Wrap in process
-                process = subprocess.Popen([REDIS_PATH, self.deployment_directory_location + "/sentinel.config"],
+                process = subprocess.Popen([REDIS_SENTINEL_PATH, self.deployment_directory_location + "/sentinel.config"],
                                            stdout=subprocess.PIPE,
                                            cwd=self.deployment_directory_location)
 
