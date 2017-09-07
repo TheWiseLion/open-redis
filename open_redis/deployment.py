@@ -109,7 +109,7 @@ class RedisDeployment(object):
         :rtype: None
         """
         # Runs the start command (if not already running on the port)
-        proc = RedisDeployment._running_on_port(self._port)
+        proc = RedisDeployment._running_on_port(self.port)
         if None is proc:
             # Create Deployment Folder (if not exists)
             if not os.path.exists(self.deployment_directory_location):
@@ -123,7 +123,7 @@ class RedisDeployment(object):
             if log:
                 base_config = base_config.replace('{DEPLOY_LOCATION}/logs/redis.log', str(log))
 
-            base_config = base_config.replace('{DEPLOY_PORT}', str(self._port))
+            base_config = base_config.replace('{DEPLOY_PORT}', str(self.port))
             base_config = base_config.replace('{DEPLOY_LOCATION}', str(self.deployment_directory_location))
 
             if master_ip is not None and master_port is not None:
@@ -177,14 +177,14 @@ class RedisDeployment(object):
         :return:
         """
         # Kill launched process (if present) and daemon
-        proc = RedisDeployment._running_on_port(self._port)
+        proc = RedisDeployment._running_on_port(self.port)
         if proc and proc.name() == EXEC_NAME:
             if not 'SYSTEM' in proc.username():
                 proc.kill()
 
     def is_running(self):
         # Is redis running on specified port
-        proc = RedisDeployment._running_on_port(self._port)
+        proc = RedisDeployment._running_on_port(self.port)
         if None is proc:
             return False
         else:
@@ -266,7 +266,7 @@ class RedisSentinel(object):
         :rtype: None
         """
         # Runs the start command (if not already running on the port)
-        proc = RedisSentinel._running_on_port(self._port)
+        proc = RedisSentinel._running_on_port(self.port)
         if None is proc:
             # Create Deployment Folder (if not exists)
             if not os.path.exists(self.deployment_directory_location):
@@ -277,7 +277,7 @@ class RedisSentinel(object):
             base_config = file_object.read()
             file_object.close()
 
-            base_config = base_config.replace('{DEPLOY_PORT}', str(self._port))
+            base_config = base_config.replace('{DEPLOY_PORT}', str(self.port))
             base_config = base_config.replace('{DEPLOY_LOCATION}', str(self.deployment_directory_location))
 
             base_config = base_config.replace('{MASTER_NAME}', master_name)
@@ -324,7 +324,7 @@ class RedisSentinel(object):
         :return:
         """
         # Kill launched process (if present) and daemon
-        proc = RedisSentinel._running_on_port(self._port)
+        proc = RedisSentinel._running_on_port(self.port)
         if proc and proc.name() == SENTINEL_EXEC_NAME:
             if not 'SYSTEM' in proc.username():
                 proc.kill()

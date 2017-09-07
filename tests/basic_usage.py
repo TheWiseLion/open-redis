@@ -6,6 +6,7 @@ import unittest
 from time import sleep
 
 import redis
+from redis.sentinel import Sentinel
 from open_redis.deployment import RedisDeployment, RedisSentinel
 
 file_dir = os.path.realpath(__file__).rsplit('/', 1)[0] + "/"
@@ -41,15 +42,34 @@ class TestRedisDeploy(unittest.TestCase):
         server.stop()
 
     def test_simple_sentinel(self):
-        server = RedisDeployment('~/redis-test-daemon', conf=file_dir + 'include-configs')
-        sentinel = RedisSentinel('~/redis-test-daemon')
-        server.start()
-        sentinel.start()
-        self.assertTrue(len(RedisSentinel.list_running_instances()) == 1)
-        sentinel.stop()
-        server.stop()
-        self.assertTrue(len(RedisSentinel.list_running_instances()) == 0)
+        # Setup Master & Slave
+        master = RedisDeployment('~/redis-master', port=3428)
+        salve = RedisDeployment('~/redis-slave', port=3429)
 
+        master.start()
+        salve.start(master_ip='127.0.0.1', master_port=3428)
+
+        # Setup Sentinel
+        sentinel = RedisSentinel('~/redis-test-daemon')
+        sentinel.start(master_ip='127.0.0.1',master_port=3428, master_name='mymaster')
+
+        ## len(RedisSentinel.list_running_instances()) == 1
+        ## len(RedisDeployment.list_running_instances()) == 2
+
+        # Client API
+        sentinel = Sentinel([('localhost', sentinel.port)], socket_timeout=0.1)
+        master_client = sentinel.master_for('mymaster')
+        slave_client = sentinel.slave_for('mymaster')
+        master_client.set('foo', 'bar')
+        slave_client.get('foo')  # bar
+
+        self.assertTrue(len(RedisSentinel.list_running_instances()) == 1)
+        self.assertTrue(len(RedisDeployment.list_running_instances()) == 2)
+        self.assertTrue(str(slave_client.get('foo').decode('utf-8')) == 'bar')
+
+        master.stop()
+        slave_client.stop()
+        sentinel.stop()
 
     def test_travis_runs(self):
         # derpy derpy town.
